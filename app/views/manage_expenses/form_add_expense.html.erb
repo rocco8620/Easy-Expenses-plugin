@@ -1,0 +1,15 @@
+<h2>Add new expense</h2>
+
+<%= labelled_form_for @exp_entry, :url => { :action => "add" }, :html => {:multipart => true} do |f| %>
+  <div class="box tabular">
+    <p><%= f.select :paid_by, @payers, :required => true %></p>
+    <p><%= f.date_field :date, :size => 10 %><%= calendar_for('expense_date') %></p>
+    <p><%= f.number_field :amount, :step=> :any, :size => 4, :required => true %> €</p>
+    <p><%= f.text_field :description, :size => 100, :maxlength => 1024, :required => true %></p>
+  </div>
+
+  <%= submit_tag "Save" %>
+  <%= cancel_button_tag "Back" %>
+<% end %>
+
+<% html_title("Add new expense") -%>

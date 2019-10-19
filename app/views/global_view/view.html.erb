@@ -1,0 +1,23 @@
+<h2>Gobal projects expenses</h2>
+
+<div class="autoscroll">
+  <table class="list files">
+    <thead><tr>
+      <th>Root project name</th>
+      <th>Amount</th>
+    </tr></thead>
+    <tbody>
+
+      <% @top_level_projects.each do |exp| %>
+        <tr class="file">
+          <td><%= link_to_project exp[0] %></td>
+          <td><%= display_currency exp[1] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<b>Total spent: <%= display_currency @expense_global %></b>
+
+<% html_title("Global expenses") -%>

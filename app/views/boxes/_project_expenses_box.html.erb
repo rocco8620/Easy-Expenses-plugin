@@ -1,0 +1,9 @@
+
+  <div class="box">
+    <h3 class="icon icon-stats">Expenses</h3>
+    
+      <p><span class="label">This project:</span> <%= expense_this_project %></p>
+      <% if @subprojects.any? %>
+      <p><span class="label">Total including subprojects:</span> <%= expense_sub_projects %></p>
+      <% end %>
+  </div>

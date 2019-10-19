@@ -1,0 +1,37 @@
+<div class="contextual">
+<%= link_to('Add expense', { :action => 'add', :project_id => @project }, :class => 'icon icon-add', :method => :get) if User.current.allowed_to?(:add_expense, @project) %>
+</div>
+
+<h2>Project expenses</h2>
+
+<% delete_allowed = User.current.allowed_to?(:remove_expense, @project) %>
+
+<div class="autoscroll">
+  <table class="list files">
+    <thead><tr>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Paid by</th>
+      <th>Description</th>
+      <th></th>
+    </tr></thead>
+    <tbody>
+
+      <% @expenses_list.each do |exp| %>
+        <tr class="file">
+          <td><%= exp.date != nil ? exp.date.strftime('%d/%m/%y') : "-" %></td>
+          <td><%= display_currency exp.amount %></td>
+          <td><%= (exp.payer_type == 0 ? User.find(exp.paid_by).name : Group.find(exp.paid_by).name) %></td>
+          <td><%= exp.description %></td>
+          <td>
+          <%= link_to('Delete', { :action => 'remove', :project_id => @project, :expense_id => exp }, :class => 'icon-only icon-del', :data => {:confirm => 'Are you sure to delete this expense?'}, :method => :get) if delete_allowed %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<b>Total spent: <%= @expense_this_project %> €</b>
+
+<% html_title("Expenses") -%>
